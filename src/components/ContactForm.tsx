@@ -1,32 +1,79 @@
 import { useState, type FormEvent } from 'react'
+import { Magnetic } from './Magnetic'
 
-const RECIPIENT = 'info@fabianholderness.com'
+type Status = 'idle' | 'sending' | 'sent' | 'error'
 
 export function ContactForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [sent, setSent] = useState(false)
+  const [company, setCompany] = useState('') // honeypot, left blank by real visitors
+  const [status, setStatus] = useState<Status>('idle')
+  const [error, setError] = useState('')
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    const subject = `Inquiry from ${name || 'website visitor'}`
-    const body = `${message}\n\n—\n${name}\n${email}`
-    window.location.href = `mailto:${RECIPIENT}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setSent(true)
+    setStatus('sending')
+    setError('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message, company }),
+      })
+      const data = await res.json().catch(() => ({}))
+
+      if (!res.ok) {
+        setStatus('error')
+        setError(data.error || 'Something went wrong. Please try again.')
+        return
+      }
+
+      setStatus('sent')
+      setName('')
+      setEmail('')
+      setMessage('')
+    } catch {
+      setStatus('error')
+      setError('Something went wrong. Please try again, or email us directly.')
+    }
   }
 
   const fieldClass =
-    'w-full border bg-transparent px-4 py-3 text-sm outline-none transition-colors placeholder:opacity-50 focus:border-current'
+    'w-full border bg-transparent px-4 py-3 text-sm outline-none transition-all duration-300 placeholder:opacity-50 focus:border-[var(--gold)] focus:shadow-[0_0_0_3px_rgba(201,161,90,0.15)] disabled:opacity-60'
+
+  if (status === 'sent') {
+    return (
+      <div
+        className="border px-6 py-8 text-sm"
+        style={{ borderColor: 'rgba(255,255,255,0.3)', color: 'white' }}
+      >
+        Thank you — your message is on its way. We'll be in touch shortly.
+      </div>
+    )
+  }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <input
+        type="text"
+        name="company"
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 opacity-0"
+      />
+
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="cf-name" className="sr-only">Name</label>
           <input
             id="cf-name"
             required
+            disabled={status === 'sending'}
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Name"
@@ -40,6 +87,7 @@ export function ContactForm() {
             id="cf-email"
             required
             type="email"
+            disabled={status === 'sending'}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
@@ -54,6 +102,7 @@ export function ContactForm() {
           id="cf-message"
           required
           rows={4}
+          disabled={status === 'sending'}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Tell us what you're looking to achieve"
@@ -62,16 +111,19 @@ export function ContactForm() {
         />
       </div>
       <div className="flex flex-wrap items-center gap-4">
-        <button
-          type="submit"
-          className="inline-flex items-center px-7 py-3.5 text-sm font-medium tracking-wide"
-          style={{ background: 'var(--gold)', color: 'var(--navy)' }}
-        >
-          Send Message
-        </button>
-        {sent && (
-          <span className="font-mono text-xs tracking-wide text-white/70">
-            Opening your mail client…
+        <Magnetic>
+          <button
+            type="submit"
+            disabled={status === 'sending'}
+            className="inline-flex items-center px-7 py-3.5 text-sm font-medium tracking-wide transition-transform disabled:cursor-wait"
+            style={{ background: 'var(--gold)', color: 'var(--navy)' }}
+          >
+            {status === 'sending' ? 'Sending…' : 'Send Message'}
+          </button>
+        </Magnetic>
+        {status === 'error' && (
+          <span className="font-mono text-xs tracking-wide" style={{ color: '#e58a8a' }}>
+            {error}
           </span>
         )}
       </div>

@@ -9,8 +9,12 @@ import { Testimonials } from '../components/Testimonials'
 import { Insights } from '../components/Insights'
 import { Contact } from '../components/Contact'
 import { Footer } from '../components/Footer'
+import { useDocumentHead } from '../hooks/useDocumentHead'
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from '../lib/seo'
 
 export function Home() {
+  useDocumentHead({ title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION, path: '/' })
+
   return (
     <>
       <Nav />

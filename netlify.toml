@@ -1,3 +1,7 @@
+# Note: the contact form backend (api/contact.ts) is a Vercel serverless
+# function and will not run on Netlify as-is — it would need to be ported
+# to a Netlify Function under netlify/functions/ to work here.
+
 [build]
   command = "pnpm build"
   publish = "dist"

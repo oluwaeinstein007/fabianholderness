@@ -8,12 +8,22 @@ pnpm.
 
 ```bash
 pnpm install
+cp .env.example .env   # fill in values — see Environment variables below
 pnpm dev
+```
+
+The contact form posts to a Vercel serverless function (`api/contact.ts`),
+which `pnpm dev` does not run. To exercise the full form locally, install the
+Vercel CLI and use it instead:
+
+```bash
+pnpm add -g vercel   # one-time
+vercel dev
 ```
 
 ## Scripts
 
-- `pnpm dev` — start the local dev server
+- `pnpm dev` — start the local dev server (frontend only, see note above)
 - `pnpm build` — type-check and build for production (outputs to `dist/`)
 - `pnpm preview` — preview the production build locally
 - `pnpm lint` — run oxlint
@@ -25,20 +35,72 @@ pnpm dev
 - `src/articles.ts` — Insights article content
 - `src/images.ts` — photography used across the site (self-hosted under `public/images/`)
 - `src/hooks/useTheme.ts` — light/dark theme toggle, persisted to `localStorage`
+- `src/lib/seo.ts` / `src/hooks/useDocumentHead.ts` — per-route title, meta
+  description, canonical URL, and Open Graph/Twitter tags
+- `api/contact.ts` — Vercel serverless function that emails contact-form
+  submissions via Resend
+
+## Environment variables
+
+See `.env.example` for the full template. Set these in the Vercel project
+dashboard (Settings → Environment Variables) for previews/production, and in
+a local `.env` for `vercel dev`:
+
+| Variable | Purpose |
+| --- | --- |
+| `VITE_SITE_URL` | Public origin used to build canonical/OG URLs |
+| `RESEND_API_KEY` | Resend API key ([resend.com](https://resend.com)) — **secret** |
+| `CONTACT_TO_EMAIL` | Inbox that contact-form submissions are delivered to |
+| `CONTACT_FROM_EMAIL` | Sender address; needs a domain verified in Resend, otherwise leave unset to use Resend's shared sandbox sender |
+
+`RESEND_API_KEY` is server-only (no `VITE_` prefix) so it's never bundled into
+client-side JS — it's only readable inside `api/contact.ts`.
+
+## SEO
+
+- `index.html` carries static title/description/canonical, Open Graph and
+  Twitter Card tags, and `FinancialService` JSON-LD structured data — this is
+  what any crawler that doesn't execute JavaScript will see for the home page.
+- `src/hooks/useDocumentHead.ts` updates the title/meta/canonical/OG tags per
+  route (home vs. each `/insights/:slug` article) for clients that do execute
+  JS (browsers, Googlebot).
+- **Caveat**: this is a client-rendered SPA with no server-side rendering or
+  prerendering. Search engines that run JavaScript will index per-article
+  content and metadata fine, but link-preview crawlers that don't (Twitter,
+  Facebook, LinkedIn, Slack, iMessage) will only ever see the static home-page
+  tags in `index.html` — an article link shared there will show the site's
+  default preview, not that article's own title/image. Fixing that properly
+  would mean adding prerendering or SSR, which is a bigger architectural
+  change and wasn't part of this pass.
+- `public/robots.txt` and `public/sitemap.xml` are static files. The sitemap
+  lists the home page and the three current articles by hand — update it if
+  articles are added to or removed from `src/articles.ts`.
 
 ## Deployment
 
-`vercel.json` and `netlify.toml` are set up for zero-config static hosting on
-Vercel or Netlify — both build with `pnpm build` and serve `dist/`, with a
-catch-all rewrite to `index.html` so client-side routes (e.g. `/insights/*`)
-resolve correctly on a hard refresh. Connect the repo through either
-provider's dashboard, or deploy from the CLI (`vercel` / `netlify deploy`)
-after authenticating with your own account — neither is wired up here.
+**Vercel** (recommended, since the contact form's backend is a Vercel
+function): `vercel.json` builds with `pnpm build`, serves `dist/`, and routes
+everything except `/api/*` through to `index.html` for client-side routing.
+Connect the repo in the Vercel dashboard (or run `vercel` from the CLI after
+`vercel login`), then set the environment variables above before the contact
+form will actually send mail.
+
+**Netlify**: `netlify.toml` is set up for static hosting the same way, but
+`api/contact.ts` is Vercel-specific and won't run there — it would need
+porting to a Netlify Function under `netlify/functions/` first.
+
+Neither provider is connected from here — deploying requires your own
+account and login.
+
+## CI
+
+`.github/workflows/ci.yml` runs `pnpm lint` and `pnpm build` (which includes
+the TypeScript check) on every push and pull request against `main`.
 
 ## Notes
 
-- The contact form builds a `mailto:` link on submit rather than posting to a
-  backend. Wire it to a real endpoint (e.g. a serverless function or a form
-  service) before relying on it for lead capture.
+- The contact form includes a hidden honeypot field (`company`) as basic
+  spam mitigation — the API silently accepts (but discards) submissions where
+  it's filled in.
 - Photography in `public/images/` originates from Unsplash, used under the
   [Unsplash License](https://unsplash.com/license).

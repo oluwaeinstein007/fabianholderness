@@ -4,10 +4,20 @@ import { Footer } from '../components/Footer'
 import { images } from '../images'
 import { getArticle } from '../articles'
 import { IconArrowRight } from '../components/icons'
+import { useDocumentHead } from '../hooks/useDocumentHead'
+import { SITE_URL } from '../lib/seo'
 
 export function ArticlePage() {
   const { slug } = useParams()
   const article = slug ? getArticle(slug) : undefined
+
+  useDocumentHead({
+    title: article ? `${article.title} | Fabian Holderness` : 'Fabian Holderness',
+    description: article?.excerpt ?? '',
+    path: article ? `/insights/${article.slug}` : '/',
+    image: article ? `${SITE_URL}${images[article.image]}` : undefined,
+    type: 'article',
+  })
 
   if (!article) return <Navigate to="/" replace />
 
