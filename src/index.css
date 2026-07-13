@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@import "@fontsource/source-serif-4/400.css";
+@import "@fontsource/source-serif-4/500.css";
+@import "@fontsource/source-serif-4/600.css";
+@import "@fontsource/source-serif-4/400-italic.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+@theme {
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+:root {
+  --bg: #F7F7F4;
+  --bg-raised: #FFFFFF;
+  --bg-sunken: #EFEEE9;
+  --ink: #10182A;
+  --ink-dim: #4B5563;
+  --ink-faint: #8A93A0;
+  --navy: #0B2545;
+  --navy-ink: #FFFFFF;
+  --gold: #8E6A28;
+  --line: #E1DFD8;
+  --line-strong: #C9C6BC;
+  --overlay: rgba(11, 37, 69, 0.72);
+}
+
+:root[data-theme="dark"] {
+  --bg: #0A0F1A;
+  --bg-raised: #121A29;
+  --bg-sunken: #0E1420;
+  --ink: #E7E9EE;
+  --ink-dim: #A2ABBA;
+  --ink-faint: #67707F;
+  --navy: #16233A;
+  --navy-ink: #E7E9EE;
+  --gold: #C9A15A;
+  --line: #223047;
+  --line-strong: #2E3E58;
+  --overlay: rgba(6, 12, 22, 0.78);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  text-wrap: balance;
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
