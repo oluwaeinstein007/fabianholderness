@@ -6,8 +6,8 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
         <div className="flex flex-wrap justify-between gap-12 border-b pb-12" style={{ borderColor: 'var(--line)' }}>
           <div className="max-w-sm">
-            <a href="/" className="flex items-center gap-2.5 font-serif text-lg">
-              <Mark className="h-6 w-6" style={{ color: 'var(--gold)' }} />
+            <a href="/" className="group flex items-center gap-2.5 font-serif text-lg">
+              <Mark className="h-6 w-6 transition-transform duration-500 group-hover:rotate-[24deg]" style={{ color: 'var(--gold)' }} />
               Fabian Holderness
             </a>
             <p className="mt-4 text-sm leading-relaxed" style={{ color: 'var(--ink-dim)' }}>

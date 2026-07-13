@@ -1,5 +1,7 @@
 import { images } from '../images'
 import { ContactForm } from './ContactForm'
+import { Magnetic } from './Magnetic'
+import { Reveal } from './Reveal'
 
 const FACTS = [
   { label: 'Office', value: 'Los Angeles, California' },
@@ -21,7 +23,7 @@ export function Contact() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-20">
-          <div>
+          <Reveal>
             <div className="mb-6 font-mono text-xs tracking-[0.18em]" style={{ color: 'var(--gold)' }}>
               GET IN TOUCH
             </div>
@@ -37,9 +39,9 @@ export function Contact() {
             <div className="mt-9">
               <ContactForm />
             </div>
-          </div>
+          </Reveal>
 
-          <div className="flex flex-col gap-5">
+          <Reveal delay={120} className="flex flex-col gap-5">
             <dl
               className="flex flex-col gap-5 border p-8 backdrop-blur-sm lg:p-10"
               style={{ borderColor: 'rgba(255,255,255,0.25)', background: 'rgba(10,15,26,0.35)' }}
@@ -55,13 +57,15 @@ export function Contact() {
                 </div>
               ))}
             </dl>
-            <a
-              href="tel:+13106267350"
-              className="inline-flex items-center justify-center border border-white/40 px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:border-white"
-            >
-              Call +1 (310) 626-7350
-            </a>
-          </div>
+            <Magnetic strength={8} className="w-full">
+              <a
+                href="tel:+13106267350"
+                className="flex items-center justify-center border border-white/40 px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:border-white"
+              >
+                Call +1 (310) 626-7350
+              </a>
+            </Magnetic>
+          </Reveal>
         </div>
       </div>
     </section>

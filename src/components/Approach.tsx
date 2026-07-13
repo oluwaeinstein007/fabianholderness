@@ -1,4 +1,5 @@
 import { images } from '../images'
+import { Reveal } from './Reveal'
 
 const POINTS = [
   {
@@ -24,16 +25,22 @@ export function Approach() {
     <section id="approach" className="py-24 lg:py-32" style={{ background: 'var(--bg-sunken)' }}>
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid gap-16 lg:grid-cols-2 lg:items-center lg:gap-20">
-          <div className="relative order-2 aspect-[4/5] overflow-hidden lg:order-1">
-            <img
-              src={images.officeInterior}
-              alt="Minimalist glass-walled office interior"
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
-          </div>
+          <Reveal className="order-2 lg:order-1">
+            <div className="group relative aspect-[4/5] overflow-hidden">
+              <img
+                src={images.officeInterior}
+                alt="Minimalist glass-walled office interior"
+                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                loading="lazy"
+              />
+              <div
+                className="pointer-events-none absolute inset-0 border"
+                style={{ borderColor: 'color-mix(in srgb, var(--gold) 40%, transparent)' }}
+              />
+            </div>
+          </Reveal>
 
-          <div className="order-1 lg:order-2">
+          <Reveal className="order-1 lg:order-2">
             <div className="mb-6 font-mono text-xs tracking-[0.18em]" style={{ color: 'var(--gold)' }}>
               OUR APPROACH
             </div>
@@ -42,16 +49,21 @@ export function Approach() {
             </h2>
 
             <dl className="mt-10 grid gap-x-8 gap-y-9 sm:grid-cols-2">
-              {POINTS.map((p) => (
-                <div key={p.title} className="border-l-2 pl-5" style={{ borderColor: 'var(--gold)' }}>
-                  <dt className="text-lg">{p.title}</dt>
-                  <dd className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--ink-dim)' }}>
-                    {p.copy}
-                  </dd>
-                </div>
+              {POINTS.map((p, i) => (
+                <Reveal key={p.title} delay={i * 100} y={16}>
+                  <div
+                    className="border-l-2 py-0.5 pl-5 transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--gold)_7%,transparent)]"
+                    style={{ borderColor: 'var(--gold)' }}
+                  >
+                    <dt className="text-lg">{p.title}</dt>
+                    <dd className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--ink-dim)' }}>
+                      {p.copy}
+                    </dd>
+                  </div>
+                </Reveal>
               ))}
             </dl>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

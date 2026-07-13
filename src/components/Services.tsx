@@ -1,5 +1,7 @@
 import { images } from '../images'
-import { IconDevelopment, IconInvestment, IconManagement, IconVenture } from './icons'
+import { IconArrowRight, IconDevelopment, IconInvestment, IconManagement, IconVenture } from './icons'
+import { Reveal } from './Reveal'
+import { Spotlight } from './Spotlight'
 
 const SERVICES = [
   {
@@ -33,7 +35,7 @@ export function Services() {
     <section id="services" className="py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
-          <div>
+          <Reveal>
             <div className="mb-6 font-mono text-xs tracking-[0.18em]" style={{ color: 'var(--gold)' }}>
               OUR SERVICES
             </div>
@@ -44,31 +46,66 @@ export function Services() {
               We work across the full lifecycle of capital — finding it, placing it, growing it,
               and building new ventures with it.
             </p>
-            <div className="relative mt-10 hidden aspect-[4/5] overflow-hidden lg:block">
+            <div className="group relative mt-10 hidden aspect-[4/5] overflow-hidden lg:block">
               <img
                 src={images.towersUpward}
                 alt="Looking up at glass office towers"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 loading="lazy"
               />
+              <div
+                className="absolute inset-0"
+                style={{ background: 'linear-gradient(0deg, rgba(11,37,69,0.35), transparent 55%)' }}
+              />
+              <div
+                className="absolute bottom-0 left-0 h-1 w-full origin-left scale-x-0 transition-transform duration-700 ease-out group-hover:scale-x-100"
+                style={{ background: 'var(--gold)' }}
+              />
             </div>
-          </div>
+          </Reveal>
 
           <div className="grid gap-px sm:grid-cols-2" style={{ background: 'var(--line)' }}>
-            {SERVICES.map((s) => (
-              <div key={s.title} className="p-8 lg:p-10" style={{ background: 'var(--bg)' }}>
-                <s.icon className="h-9 w-9" style={{ color: 'var(--gold)' }} />
-                <h3 className="mt-6 text-xl">{s.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed" style={{ color: 'var(--ink-dim)' }}>
-                  {s.copy}
-                </p>
-                <div
-                  className="mt-6 font-mono text-[0.68rem] tracking-[0.14em]"
-                  style={{ color: 'var(--ink-faint)' }}
+            {SERVICES.map((s, i) => (
+              <Reveal key={s.title} delay={i * 90}>
+                <Spotlight
+                  className="group relative flex h-full flex-col p-8 transition-colors duration-300 lg:p-10"
+                  style={{ background: 'var(--bg)' }}
                 >
-                  {s.tag.toUpperCase()}
-                </div>
-              </div>
+                  <span
+                    className="pointer-events-none absolute right-6 top-6 font-mono text-4xl font-medium opacity-[0.06] transition-opacity duration-300 group-hover:opacity-[0.12] lg:text-5xl"
+                    style={{ color: 'var(--ink)' }}
+                  >
+                    0{i + 1}
+                  </span>
+
+                  <s.icon
+                    className="h-9 w-9 transition-transform duration-300 group-hover:-translate-y-1"
+                    style={{ color: 'var(--gold)' }}
+                  />
+                  <h3 className="mt-6 text-xl">{s.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed" style={{ color: 'var(--ink-dim)' }}>
+                    {s.copy}
+                  </p>
+
+                  <div className="mt-6 flex items-center justify-between">
+                    <div
+                      className="font-mono text-[0.68rem] tracking-[0.14em]"
+                      style={{ color: 'var(--ink-faint)' }}
+                    >
+                      {s.tag.toUpperCase()}
+                    </div>
+                    <IconArrowRight
+                      className="h-4 w-4 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                      style={{ color: 'var(--gold)' }}
+                    />
+                  </div>
+
+                  <div
+                    className="absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100"
+                    style={{ background: 'var(--gold)' }}
+                  />
+                </Spotlight>
+              </Reveal>
             ))}
           </div>
         </div>
