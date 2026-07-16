@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { images } from '../images'
+import { imageAlt, images } from '../images'
 import { Magnetic } from './Magnetic'
 import { IconArrowRight } from './icons'
 
@@ -40,10 +40,11 @@ export function Hero() {
     <section id="top" className="relative min-h-screen overflow-hidden pt-28">
       <img
         src={images.heroSkyline}
-        alt="Downtown Los Angeles skyline at dusk"
+        alt={imageAlt.heroSkyline}
         className="absolute inset-0 h-[120%] w-full object-cover will-change-transform"
         style={{ transform: `translateY(${Math.min(offset * 0.18, 90)}px)` }}
         loading="eager"
+        fetchPriority="high"
       />
       <div
         className="absolute inset-0"

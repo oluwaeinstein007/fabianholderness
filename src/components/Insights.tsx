@@ -1,6 +1,6 @@
 import { useState, type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { images } from '../images'
+import { imageAlt, images } from '../images'
 import { articles } from '../articles'
 import { IconArrowRight } from './icons'
 import { Reveal } from './Reveal'
@@ -22,7 +22,7 @@ export function Insights() {
             <div className="relative aspect-[4/3] overflow-hidden lg:aspect-auto lg:h-full">
               <img
                 src={images.dataDashboard}
-                alt="Market research and analytics dashboard"
+                alt={imageAlt.dataDashboard}
                 className="h-full w-full object-cover"
                 loading="lazy"
               />

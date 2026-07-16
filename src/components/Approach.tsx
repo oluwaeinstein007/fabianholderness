@@ -1,4 +1,4 @@
-import { images } from '../images'
+import { imageAlt, images } from '../images'
 import { Reveal } from './Reveal'
 
 const POINTS = [
@@ -29,7 +29,7 @@ export function Approach() {
             <div className="group relative aspect-[4/5] overflow-hidden">
               <img
                 src={images.officeInterior}
-                alt="Minimalist glass-walled office interior"
+                alt={imageAlt.officeInterior}
                 className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 loading="lazy"
               />

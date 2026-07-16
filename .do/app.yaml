@@ -1,0 +1,32 @@
+# DigitalOcean App Platform app spec — optional infrastructure-as-code
+# alternative to configuring the app by hand in the DO Control Panel.
+#
+# Import this file when creating the app ("Edit Your App Spec" on the
+# resource-detection screen, or `doctl apps create --spec .do/app.yaml`) and
+# DigitalOcean skips straight to a correctly configured Static Site:
+# build command, output directory, and SPA catch-all routing already set.
+#
+# ${APP_URL} is a DigitalOcean-provided bindable variable resolved to this
+# app's live URL (its *.ondigitalocean.app domain, or the custom domain once
+# attached) — wiring it to VITE_SITE_URL means canonical/OG tags, the
+# sitemap, and robots.txt are all correct with no manual step, the same way
+# Vercel's auto-injected VERCEL_URL already works (see
+# scripts/resolve-site-url.mjs).
+name: fabianholderness
+static_sites:
+  - name: web
+    github:
+      repo: oluwaeinstein007/fabianholderness
+      branch: main
+      deploy_on_push: true
+    build_command: pnpm build
+    output_dir: dist
+    index_document: index.html
+    # SPA client-side routing (react-router): unmatched paths (e.g. a
+    # hard-refresh on /insights/some-slug) fall back to index.html instead of
+    # a raw 404, mirroring vercel.json's rewrite and netlify.toml's redirect.
+    catchall_document: index.html
+    envs:
+      - key: VITE_SITE_URL
+        scope: BUILD_TIME
+        value: ${APP_URL}

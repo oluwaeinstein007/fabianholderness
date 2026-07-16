@@ -1,4 +1,4 @@
-import { images } from '../images'
+import { imageAlt, images } from '../images'
 import { ContactForm } from './ContactForm'
 import { Magnetic } from './Magnetic'
 import { Reveal } from './Reveal'
@@ -15,7 +15,7 @@ export function Contact() {
     <section id="contact" className="relative overflow-hidden py-24 lg:py-32">
       <img
         src={images.teamAtWork}
-        alt="Office at dusk, teams reviewing work"
+        alt={imageAlt.teamAtWork}
         className="absolute inset-0 h-full w-full object-cover"
         loading="lazy"
       />

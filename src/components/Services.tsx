@@ -1,4 +1,4 @@
-import { images } from '../images'
+import { imageAlt, images } from '../images'
 import { IconArrowRight, IconDevelopment, IconInvestment, IconManagement, IconVenture } from './icons'
 import { Reveal } from './Reveal'
 import { Spotlight } from './Spotlight'
@@ -49,7 +49,7 @@ export function Services() {
             <div className="group relative mt-10 hidden aspect-[4/5] overflow-hidden lg:block">
               <img
                 src={images.towersUpward}
-                alt="Looking up at glass office towers"
+                alt={imageAlt.towersUpward}
                 className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 loading="lazy"
               />
