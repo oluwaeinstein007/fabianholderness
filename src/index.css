@@ -223,3 +223,20 @@
     animation: none !important;
   }
 }
+
+/* Theme-swapped assets (e.g. brand logos with a light- and dark-bg variant) */
+.theme-light-only {
+  display: block;
+}
+
+.theme-dark-only {
+  display: none;
+}
+
+:root[data-theme='dark'] .theme-light-only {
+  display: none;
+}
+
+:root[data-theme='dark'] .theme-dark-only {
+  display: block;
+}

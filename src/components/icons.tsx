@@ -99,6 +99,16 @@ export function IconArrowRight({ className }: IconProps) {
   )
 }
 
+export function IconExternalLink({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} {...base}>
+      <path d="M18 13 L18 18.5 Q18 20 16.5 20 L5.5 20 Q4 20 4 18.5 L4 7.5 Q4 6 5.5 6 L11 6" />
+      <path d="M14 4 L20 4 L20 10" />
+      <path d="M20 4 L11 13" />
+    </svg>
+  )
+}
+
 export function Mark({ className, style }: IconProps) {
   return (
     <svg viewBox="0 0 32 32" className={className} style={style}>

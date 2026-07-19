@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 48" role="img" aria-labelledby="nxgnosis-title-dark">
+  <title id="nxgnosis-title-dark">NxGnosis</title>
+  <g fill="none" stroke-linecap="round">
+    <line x1="14" y1="24" x2="31" y2="11" stroke="#C9A15A" stroke-width="2.2" />
+    <line x1="14" y1="24" x2="31" y2="37" stroke="#C9A15A" stroke-width="2.2" />
+    <line x1="31" y1="11" x2="31" y2="37" stroke="#E7E9EE" stroke-width="2.2" stroke-dasharray="0.5 4.5" />
+    <circle cx="14" cy="24" r="5.5" fill="#E7E9EE" />
+    <circle cx="31" cy="11" r="4" fill="#C9A15A" />
+    <circle cx="31" cy="37" r="4" fill="#C9A15A" />
+  </g>
+  <text
+    x="48"
+    y="32"
+    font-family="Helvetica Neue, Arial, sans-serif"
+    font-size="23"
+    font-weight="700"
+    letter-spacing="0.2"
+  ><tspan fill="#E7E9EE">Nx</tspan><tspan fill="#C9A15A">Gnosis</tspan></text>
+</svg>

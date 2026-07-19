@@ -1,28 +1,35 @@
-import { IconArrowRight } from './icons'
+import type { ReactNode } from 'react'
+import { IconArrowRight, IconExternalLink } from './icons'
 import { Reveal } from './Reveal'
 import { Spotlight } from './Spotlight'
 
 const COMPANIES = [
   {
-    mark: 'TVA',
+    logoLight: '/images/logos/tva-logo-light.png',
+    logoDark: '/images/logos/tva-logo-dark.svg',
     name: 'Travel Avatar',
     sector: 'Online Travel Agency',
     tag: 'TRAVEL',
+    url: 'https://www.tvaofficial.com/',
     copy: 'A full-service OTA platform for flights and hotels, built and operated end-to-end by our development team — booking engine, affiliate network, and back office alike.',
   },
   {
-    mark: 'PR',
+    logoLight: '/images/logos/palremit-logo-light.svg',
+    logoDark: '/images/logos/palremit-logo-dark.svg',
     name: 'PalRemit',
     sector: 'Fintech · Remittance',
     tag: 'FINTECH',
+    url: 'https://www.palremit.com/',
     copy: 'Cross-border payments and remittance infrastructure, built to move money reliably through the markets our clients and partners operate in.',
   },
   {
-    mark: 'AD',
-    name: 'Adache',
-    sector: 'Early-Stage Venture',
-    tag: 'VENTURE',
-    copy: 'One of our newer ventures — staffed, structured, and resourced in-house from the earliest stage, the same discipline we bring to every company we back.',
+    logoLight: '/images/logos/nxgnosis-logo-light.svg',
+    logoDark: '/images/logos/nxgnosis-logo-dark.svg',
+    name: 'NxGnosis',
+    sector: 'Artificial Intelligence',
+    tag: 'AI',
+    url: undefined as string | undefined,
+    copy: 'Our AI venture, building applied products like TravelMind — a travel-focused AI — on top of a shared research and infrastructure layer.',
   },
 ]
 
@@ -48,31 +55,49 @@ export function Portfolio() {
           {COMPANIES.map((c, i) => (
             <Reveal key={c.name} delay={i * 90}>
               <Spotlight
-                className="group relative flex h-full flex-col p-8 transition-colors duration-300 lg:p-10"
+                className="group relative flex h-full flex-col transition-colors duration-300"
                 style={{ background: 'var(--bg-raised)' }}
               >
-                <div className="flex items-center justify-between">
-                  <div
-                    className="flex h-12 w-12 shrink-0 items-center justify-center border font-mono text-[0.7rem] tracking-wide transition-colors duration-300 group-hover:border-[var(--gold)]"
-                    style={{ borderColor: 'var(--line-strong)', color: 'var(--gold)' }}
-                  >
-                    {c.mark}
+                <CardShell href={c.url} className="flex h-full flex-col p-8 lg:p-10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-9 shrink-0 items-center">
+                      <img
+                        src={c.logoLight}
+                        alt={`${c.name} logo`}
+                        className="theme-light-only h-6 w-auto object-contain lg:h-7"
+                        loading="lazy"
+                      />
+                      <img
+                        src={c.logoDark}
+                        alt={`${c.name} logo`}
+                        className="theme-dark-only h-6 w-auto object-contain lg:h-7"
+                        loading="lazy"
+                      />
+                    </div>
+                    <span className="font-mono text-[0.65rem] tracking-[0.14em]" style={{ color: 'var(--ink-faint)' }}>
+                      {c.tag}
+                    </span>
                   </div>
-                  <span className="font-mono text-[0.65rem] tracking-[0.14em]" style={{ color: 'var(--ink-faint)' }}>
-                    {c.tag}
-                  </span>
-                </div>
 
-                <h3 className="mt-6 text-xl">{c.name}</h3>
-                <div className="mt-1 font-mono text-xs tracking-wide" style={{ color: 'var(--gold)' }}>
-                  {c.sector}
-                </div>
-                <p className="mt-3 flex-1 text-sm leading-relaxed" style={{ color: 'var(--ink-dim)' }}>
-                  {c.copy}
-                </p>
+                  <div className="mt-6 flex items-center gap-2">
+                    <h3 className="text-xl">{c.name}</h3>
+                    {c.url && (
+                      <IconExternalLink
+                        className="h-3.5 w-3.5 -translate-y-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        style={{ color: 'var(--gold)' }}
+                      />
+                    )}
+                  </div>
+                  <div className="mt-1 font-mono text-xs tracking-wide" style={{ color: 'var(--gold)' }}>
+                    {c.sector}
+                  </div>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed" style={{ color: 'var(--ink-dim)' }}>
+                    {c.copy}
+                  </p>
+                </CardShell>
 
                 <div
-                  className="absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100"
                   style={{ background: 'var(--gold)' }}
                 />
               </Spotlight>
@@ -114,5 +139,16 @@ export function Portfolio() {
         </div>
       </div>
     </section>
+  )
+}
+
+function CardShell({ href, className, children }: { href?: string; className: string; children: ReactNode }) {
+  if (!href) {
+    return <div className={className}>{children}</div>
+  }
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      {children}
+    </a>
   )
 }

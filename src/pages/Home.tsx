@@ -6,7 +6,6 @@ import { Approach } from '../components/Approach'
 import { Portfolio } from '../components/Portfolio'
 import { Founder } from '../components/Founder'
 import { Team } from '../components/Team'
-import { Testimonials } from '../components/Testimonials'
 import { Insights } from '../components/Insights'
 import { Contact } from '../components/Contact'
 import { Footer } from '../components/Footer'
@@ -27,7 +26,6 @@ export function Home() {
         <Portfolio />
         <Founder />
         <Team />
-        <Testimonials />
         <Insights />
         <Contact />
       </main>
