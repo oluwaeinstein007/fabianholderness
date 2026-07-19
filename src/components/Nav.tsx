@@ -6,6 +6,7 @@ import { IconClose, IconMenu, IconMoon, IconSun, Mark } from './icons'
 const LINKS = [
   { href: '/#services', label: 'Services' },
   { href: '/#approach', label: 'Approach' },
+  { href: '/#portfolio', label: 'Portfolio' },
   { href: '/#leadership', label: 'Leadership' },
   { href: '/#team', label: 'Team' },
   { href: '/#insights', label: 'Insights' },

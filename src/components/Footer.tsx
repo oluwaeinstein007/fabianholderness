@@ -26,6 +26,7 @@ export function Footer() {
               </h4>
               <ul className="flex flex-col gap-2.5 text-sm">
                 <li><a href="/#services" className="hover:opacity-70">Our Services</a></li>
+                <li><a href="/#portfolio" className="hover:opacity-70">Our Companies</a></li>
                 <li><a href="/#leadership" className="hover:opacity-70">About Us</a></li>
                 <li><a href="/#contact" className="hover:opacity-70">Contact Us</a></li>
               </ul>

@@ -71,17 +71,18 @@ export function Services() {
                   className="group relative flex h-full flex-col p-8 transition-colors duration-300 lg:p-10"
                   style={{ background: 'var(--bg)' }}
                 >
-                  <span
-                    className="pointer-events-none absolute right-6 top-6 font-mono text-4xl font-medium opacity-[0.06] transition-opacity duration-300 group-hover:opacity-[0.12] lg:text-5xl"
-                    style={{ color: 'var(--ink)' }}
-                  >
-                    0{i + 1}
-                  </span>
-
-                  <s.icon
-                    className="h-9 w-9 transition-transform duration-300 group-hover:-translate-y-1"
-                    style={{ color: 'var(--gold)' }}
-                  />
+                  <div className="flex items-center justify-between">
+                    <s.icon
+                      className="h-9 w-9 transition-transform duration-300 group-hover:-translate-y-1"
+                      style={{ color: 'var(--gold)' }}
+                    />
+                    <span
+                      className="font-mono text-xs tracking-[0.1em] transition-colors duration-300 group-hover:text-[var(--gold)]"
+                      style={{ color: 'var(--ink-faint)' }}
+                    >
+                      N&deg; 0{i + 1}
+                    </span>
+                  </div>
                   <h3 className="mt-6 text-xl">{s.title}</h3>
                   <p className="mt-3 flex-1 text-sm leading-relaxed" style={{ color: 'var(--ink-dim)' }}>
                     {s.copy}

@@ -3,6 +3,7 @@ import { Hero } from '../components/Hero'
 import { StatsBar } from '../components/StatsBar'
 import { Services } from '../components/Services'
 import { Approach } from '../components/Approach'
+import { Portfolio } from '../components/Portfolio'
 import { Founder } from '../components/Founder'
 import { Team } from '../components/Team'
 import { Testimonials } from '../components/Testimonials'
@@ -23,6 +24,7 @@ export function Home() {
         <StatsBar />
         <Services />
         <Approach />
+        <Portfolio />
         <Founder />
         <Team />
         <Testimonials />
