@@ -1,11 +1,9 @@
 import { imageAlt, images } from '../images'
 import { ContactForm } from './ContactForm'
-import { Magnetic } from './Magnetic'
 import { Reveal } from './Reveal'
 
 const FACTS = [
   { label: 'Office', value: 'Los Angeles, California' },
-  { label: 'Phone', value: '+1 (310) 626-7350' },
   { label: 'Email', value: 'info@fabianholderness.com' },
   { label: 'Hours', value: 'Mon – Fri, 08:00 – 16:00' },
 ]
@@ -57,14 +55,6 @@ export function Contact() {
                 </div>
               ))}
             </dl>
-            <Magnetic strength={8} className="w-full">
-              <a
-                href="tel:+13106267350"
-                className="flex items-center justify-center border border-white/40 px-7 py-3.5 text-sm font-medium tracking-wide text-white transition-colors hover:border-white"
-              >
-                Call +1 (310) 626-7350
-              </a>
-            </Magnetic>
           </Reveal>
         </div>
       </div>

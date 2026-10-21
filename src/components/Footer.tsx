@@ -40,7 +40,6 @@ export function Footer() {
               </h4>
               <ul className="flex flex-col gap-2.5 text-sm">
                 <li><a href="mailto:info@fabianholderness.com" className="hover:opacity-70">info@fabianholderness.com</a></li>
-                <li><a href="tel:+13106267350" className="hover:opacity-70">+1 (310) 626-7350</a></li>
               </ul>
             </div>
           </div>
